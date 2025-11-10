@@ -12,14 +12,13 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 
-const SECRET = "password";
 
 app.post("/api/password", (req, res) => {
     const { password } = req.body;
 
     if (password === "password") {
         // Génération d'un token
-        const token = jwt.sign({ user: "admin" }, SECRET, { expiresIn: "1h" });
+        const token = jwt.sign({ user: "admin" }, "password", { expiresIn: "1h" });
         res.json({ message: "Vous êtes connecté", token });
     } else {
         res.status(401).json({ message: "Mot de passe incorrect" });
